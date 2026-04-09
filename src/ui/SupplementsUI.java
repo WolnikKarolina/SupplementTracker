@@ -19,6 +19,7 @@ public class SupplementsUI {
     }
 
     public void start() {
+        app.loadFromFile("resources/suplementy.dat");
         boolean running = true;
         while (running) {
             showMenu();
@@ -34,6 +35,7 @@ public class SupplementsUI {
                 case DISPLAY_BY_TIME -> displayByTime();
                 case DELETE_SUPPLEMENT -> deleteSupplement();
                 case EXIT -> {
+                    app.saveToFile("resources/suplementy.dat");
                     System.out.println("Do widzenia!");
                     running = false;
                 }
@@ -93,13 +95,12 @@ public class SupplementsUI {
         while (addingTimes) {
             TimeOfDay.printMenu();
             getTimeChoice(times);
-            int another;
-            addingTimes = addingAnotherTime(addingTimes);
+            addingTimes = addingAnotherTime();
         }
         return times;
     }
 
-    private boolean addingAnotherTime(boolean addingTimes) {
+    private boolean addingAnotherTime() {
         while (true) {
         int another = readInt("Czy chcesz dodać kolejną porę dnia? 1 - tak, 2 - nie");
             if (another == 1) {

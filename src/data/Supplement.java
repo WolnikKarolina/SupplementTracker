@@ -2,11 +2,12 @@ package data;
 
 import enums.TimeOfDay;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
-public class Supplement {
+public class Supplement implements Serializable {
     private String name;
     private int dose;
     private Set<TimeOfDay> times;
