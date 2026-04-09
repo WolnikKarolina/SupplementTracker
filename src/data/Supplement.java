@@ -13,12 +13,12 @@ public class Supplement {
     private int quantity;
     private LocalDate startDate;
 
-    public Supplement(String name, int dose, Set<TimeOfDay> times, int quantity, LocalDate startDate) {
+    public Supplement(String name, int dose, Set<TimeOfDay> times, int quantity) {
         this.name = name;
         this.dose = dose;
         this.times = times;
         this.quantity = quantity;
-        this.startDate = startDate;
+        this.startDate = LocalDate.now();
     }
 
     public String getName() {
