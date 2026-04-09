@@ -63,7 +63,7 @@ public class Supplement {
 
     @Override
     public String toString() {
-        return name + ": dawka: " + dose + ", pora dawkowania: " +  times;
+        return name + ": dawka: " + dose;
     }
 
     @Override
