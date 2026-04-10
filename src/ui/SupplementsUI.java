@@ -4,7 +4,6 @@ import app.SupplementsApp;
 import data.Supplement;
 import enums.MenuOption;
 import enums.TimeOfDay;
-import java.time.LocalDate;
 import java.util.*;
 
 
@@ -19,11 +18,11 @@ public class SupplementsUI {
     }
 
     public void start() {
-        app.loadFromFile("resources/suplementy.dat");
+        app.loadFromFile("resources/supplements.txt");
         boolean running = true;
         while (running) {
             showMenu();
-            int choice = getUserChoice();
+            int choice = readInt("Wybierz numer");
             MenuOption option = MenuOption.fromCode(choice);
             if (option == null) {
                 System.out.println("Niepoprawny wybór, spróbuj ponownie");
@@ -35,7 +34,7 @@ public class SupplementsUI {
                 case DISPLAY_BY_TIME -> displayByTime();
                 case DELETE_SUPPLEMENT -> deleteSupplement();
                 case EXIT -> {
-                    app.saveToFile("resources/suplementy.dat");
+                    app.saveToFile(("resources/supplements.txt"));
                     System.out.println("Do widzenia!");
                     running = false;
                 }
@@ -47,7 +46,7 @@ public class SupplementsUI {
     private void deleteSupplement() {
         System.out.println("Wpisz nazwę suplementu który chcesz usunąć");
         String name = sc.nextLine();
-        if (app.deleteSuplementByName(name)){
+        if (app.deleteSupplementByName(name)){
             System.out.println("Suplement został usunięty");
         }else {
             System.out.println("Nie znaleziono suplementu o podanej nazwie");
@@ -67,15 +66,7 @@ public class SupplementsUI {
     }
 
     private void displayAll() {
-        Set<Supplement> allSupplements = app.getSupplements();
-        if (allSupplements.isEmpty()) {
-            System.out.println("Brak suplementów w systemie");
-        }else {
-            System.out.println("Lista wszystkich suplementów: ");
-            allSupplements.forEach(System.out::println);
-            int size = allSupplements.size();
-            System.out.println("Ilośc: " + size);
-        }
+        app.displayAllSupplements();
     }
 
     private void addSupplement() {
@@ -84,9 +75,12 @@ public class SupplementsUI {
         String name = sc.nextLine();
         int dose = readInt("Podaj dawkę");
         Set<TimeOfDay> times = addTimes();
-        int quantity = readInt("Podaj ilość");
-        app.addSupplement(new Supplement(name, dose, times, quantity));
-        System.out.println("Dodano nowy suplement:" + name);
+
+        if (app.addSupplement(new Supplement(name, dose, times))) {
+            System.out.println("Dodano nowy suplement:" + name);
+        }else {
+            System.out.println("Suplement o tej nazwie już istnieje");
+        }
     }
 
     private Set<TimeOfDay> addTimes() {
@@ -125,10 +119,6 @@ public class SupplementsUI {
         } else {
             System.out.println("Niepoprawny wybór");
         }
-    }
-
-    private int getUserChoice() {
-        return readInt("Wybierz numer");
     }
 
     private int readInt(String prompt) {
