@@ -63,7 +63,6 @@ public class SupplementsApp {
         } catch (IOException e) {
             System.out.println("Nie udało się zapisac danych do pliku: " + e.getMessage());
         }
-
     }
 
     public void loadFromFile(String fileName) {

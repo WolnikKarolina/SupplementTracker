@@ -8,8 +8,8 @@ import java.util.*;
 
 
 public class SupplementsUI {
-    private SupplementsApp app;
-    private Scanner sc;
+    private final SupplementsApp app;
+    private final Scanner sc;
 
 
     public SupplementsUI(SupplementsApp app) {
@@ -39,7 +39,6 @@ public class SupplementsUI {
                     running = false;
                 }
             }
-
         }
     }
 
