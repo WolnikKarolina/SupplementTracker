@@ -6,10 +6,7 @@ import enums.TimeOfDay;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SupplementsApp {
@@ -36,8 +33,15 @@ public class SupplementsApp {
         return false;
     }
 
+    public List<Supplement> sortByName(){
+        return supplements.stream()
+                .sorted(Comparator.comparing(Supplement::getName))
+                .collect(Collectors.toList());
+
+    }
+
     public void displayAllSupplements() {
-            supplements.forEach(System.out::println);
+            sortByName().forEach(System.out::println);
             System.out.println("Ilość suplementów: " + supplements.size());
     }
 
