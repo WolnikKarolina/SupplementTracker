@@ -6,6 +6,7 @@ import enums.TimeOfDay;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,46 +51,35 @@ public class SupplementsApp {
                 .forEach(System.out::println);
     }
 
-    public void saveToFile(String fileName) {
+    public void saveToFile(String fileName) throws IOException {
         Path path = Path.of(fileName);
-        String content = supplements.stream()
+        List<String> sup = supplements.stream()
                 .map(s -> s.getName() + ";" +
                         s.getDose() + ";" +
                         s.getTimes().stream()
                                 .map(Enum::name)
-                                .collect(Collectors.joining(",")) + ";"
-                )
-                .collect(Collectors.joining("\n"));
-        System.out.println("Dane zapisane do pliku: " + fileName);
-        try {
-            Files.writeString(path, content);
-        } catch (IOException e) {
-            System.out.println("Nie udało się zapisac danych do pliku: " + e.getMessage());
-        }
+                                .collect(Collectors.joining(","))
+                ).toList();
+        Files.write(path, sup, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
-    public void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) throws IOException {
         Path path = Path.of(fileName);
         if (!Files.exists(path))
             return;
-        try {
-            List<String> lines = Files.readAllLines(path);
-            for (String line : lines) {
-                String[] parts = line.split(";");
-                String name = parts[0];
-                int dose = Integer.parseInt(parts[1]);
-                Set<TimeOfDay> times = new HashSet<>();
-                if (!parts[2].isEmpty()) {
-                    for (String t : parts[2].split(",")) {
-                        times.add(TimeOfDay.valueOf(t));
-                    }
+        List<String> lines = Files.readAllLines(path);
+        for (String line : lines) {
+            String[] parts = line.split(";");
+            String name = parts[0];
+            int dose = Integer.parseInt(parts[1]);
+            Set<TimeOfDay> times = new HashSet<>();
+            if (!parts[2].isEmpty()) {
+                for (String t : parts[2].split(",")) {
+                    times.add(TimeOfDay.valueOf(t));
                 }
-                Supplement s = new Supplement(name, dose, times);
-                supplements.add(s);
             }
-            System.out.println("Dane wczytane z pliku: " + fileName);
-        } catch (IOException e) {
-            System.out.println("Błąd wczytywania danych: " + e.getMessage());
+            Supplement s = new Supplement(name, dose, times);
+            supplements.add(s);
         }
     }
 }

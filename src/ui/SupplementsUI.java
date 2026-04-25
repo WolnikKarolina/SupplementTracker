@@ -4,12 +4,15 @@ import app.SupplementsApp;
 import data.Supplement;
 import enums.MenuOption;
 import enums.TimeOfDay;
+
+import java.io.IOException;
 import java.util.*;
 
 
 public class SupplementsUI {
     private final SupplementsApp app;
     private final Scanner sc;
+    private final String fileName = "resources/supplements.csv";
 
 
     public SupplementsUI(SupplementsApp app) {
@@ -18,7 +21,11 @@ public class SupplementsUI {
     }
 
     public void start() {
-        app.loadFromFile("resources/supplements.txt");
+        try {
+            app.loadFromFile(fileName);
+        } catch (IOException e) {
+            System.out.println("Nie udało się wczytać pliku: " + e.getMessage());
+        }
         boolean running = true;
         while (running) {
             showMenu();
@@ -34,7 +41,11 @@ public class SupplementsUI {
                 case DISPLAY_BY_TIME -> displayByTime();
                 case DELETE_SUPPLEMENT -> deleteSupplement();
                 case EXIT -> {
-                    app.saveToFile(("resources/supplements.txt"));
+                    try {
+                        app.saveToFile((fileName));
+                    } catch (IOException e) {
+                        System.out.println("Nie udało się zapisać pliku: " + e.getMessage());
+                    }
                     System.out.println("Do widzenia!");
                     running = false;
                 }
