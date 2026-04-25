@@ -137,12 +137,10 @@ public class SupplementsUI {
         }
     }
 
-
     private void showMenu() {
         System.out.println("----MENU GŁÓWNE---");
         System.out.println("Wybierz opcję:");
         MenuOption.printMenu();
     }
-
 
 }

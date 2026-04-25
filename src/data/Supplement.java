@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-public class Supplement implements Serializable {
+public class Supplement {
     private String name;
     private int dose;
     private Set<TimeOfDay> times;

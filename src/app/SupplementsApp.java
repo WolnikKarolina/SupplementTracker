@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 public class SupplementsApp {
     private Set<Supplement> supplements =  new HashSet<>();
 
-
     public Set<Supplement> getSupplements() {
         return supplements;
     }
@@ -93,7 +92,4 @@ public class SupplementsApp {
             System.out.println("Błąd wczytywania danych: " + e.getMessage());
         }
     }
-
-
-
 }
