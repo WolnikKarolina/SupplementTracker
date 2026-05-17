@@ -42,7 +42,6 @@ public class SupplementsApp {
 
     public void displayAllSupplements() {
             sortByName().forEach(System.out::println);
-            System.out.println("Ilość suplementów: " + supplements.size());
     }
 
     public void displaySupplementsByTime(TimeOfDay time) {

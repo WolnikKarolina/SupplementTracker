@@ -25,7 +25,7 @@ public class SupplementsUI {
         try {
             app.loadFromFile(fileName);
         } catch (IOException e) {
-            System.out.println("Nie udało się wczytać pliku: " + e.getMessage());
+            print("Nie udało się wczytać pliku: " + e.getMessage());
         }
         boolean running = true;
         while (running) {
@@ -42,25 +42,25 @@ public class SupplementsUI {
                         try {
                             app.saveToFile((fileName));
                         } catch (IOException e) {
-                            System.out.println("Nie udało się zapisać pliku: " + e.getMessage());
+                            print("Nie udało się zapisać pliku: " + e.getMessage());
                         }
-                        System.out.println("Do widzenia!");
+                        print("Do widzenia!");
                         running = false;
                     }
                 }
             } catch (NoSuchOptionException e) {
-                System.out.println("Niepoprawny wybór, spróbuj ponownie");
+                print("Niepoprawny wybór, spróbuj ponownie");
             }
         }
     }
 
     private void deleteSupplement() {
-        System.out.println("Wpisz nazwę suplementu który chcesz usunąć");
+        print("Wpisz nazwę suplementu który chcesz usunąć");
         String name = sc.nextLine();
         if (app.deleteSupplementByName(name)){
-            System.out.println("Suplement został usunięty");
+            print("Suplement został usunięty");
         }else {
-            System.out.println("Nie znaleziono suplementu o podanej nazwie");
+            print("Nie znaleziono suplementu o podanej nazwie");
         }
     }
 
@@ -69,28 +69,30 @@ public class SupplementsUI {
         int choice = readInt("Wybierz porę dnia");
         TimeOfDay time = TimeOfDay.fromCode(choice);
         if (time == null) {
-            System.out.println("Niepoprawny wybór, spróbuj ponownie");
+            print("Niepoprawny wybór, spróbuj ponownie");
             return;
         }
-        System.out.println("Suplementy według pory dnia: " + time.getDescription());
+        print("Suplementy według pory dnia: " + time.getDescription());
         app.displaySupplementsByTime(time);
     }
 
     private void displayAll() {
+        print("--- Wszystkie suplementy ---");
         app.displayAllSupplements();
+        print("Ilość wszystkich suplementów: " + app.getSupplements().size());
     }
 
     private void addSupplement() {
-        System.out.println("--- Dodawanie suplementu ---");
-        System.out.println("Podaj nazwę suplementu");
+        print("--- Dodawanie suplementu ---");
+        print("Podaj nazwę suplementu");
         String name = sc.nextLine();
         int dose = readInt("Podaj dawkę");
         Set<TimeOfDay> times = addTimes();
 
         if (app.addSupplement(new Supplement(name, dose, times))) {
-            System.out.println("Dodano nowy suplement:" + name);
+            print("Dodano nowy suplement:" + name);
         }else {
-            System.out.println("Suplement o tej nazwie już istnieje");
+            print("Suplement o tej nazwie już istnieje");
         }
     }
 
@@ -113,7 +115,7 @@ public class SupplementsUI {
             } else if (another == 2) {
                 return false;
             } else {
-                System.out.println("Niepoprawny wybór. Wpisz 1 lub 2 ");
+                print("Niepoprawny wybór. Wpisz 1 lub 2 ");
             }
         }
     }
@@ -123,36 +125,38 @@ public class SupplementsUI {
         TimeOfDay time = TimeOfDay.fromCode(choice);
         if (time != null) {
             if (times.add(time)) {
-                System.out.println(time.getDescription() + " dodane");
+                print(time.getDescription() + " dodane");
             } else {
-                System.out.println("Ta pora dnia została dodana");
+                print("Ta pora dnia została dodana");
             }
         } else {
-            System.out.println("Niepoprawny wybór");
+            print("Niepoprawny wybór");
         }
     }
 
     private int readInt(String prompt) {
         while (true) {
-            System.out.println(prompt);
+            print(prompt);
             try {
                 int number = Integer.parseInt(sc.nextLine());
                 if (number >= 0) {
                     return number;
                 }else {
-                    System.out.println("Wybierz jedną z liczb:");
-                    MenuOption.printMenu();
+                    print("Niepoprawny wybór");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Niepoprawny format, wpisz liczbę całkowitą");
+                print("Niepoprawny format, wpisz liczbę całkowitą");
             }
         }
     }
 
     private void showMenu() {
-        System.out.println("----MENU GŁÓWNE---");
-        System.out.println("Wybierz opcję:");
+        print("----MENU GŁÓWNE---");
+        print("Wybierz opcję:");
         MenuOption.printMenu();
     }
 
+    private void print(String message) {
+        System.out.println(message);
+    }
 }
