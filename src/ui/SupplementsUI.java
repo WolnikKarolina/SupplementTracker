@@ -4,6 +4,7 @@ import app.SupplementsApp;
 import data.Supplement;
 import enums.MenuOption;
 import enums.TimeOfDay;
+import exceptions.NoSuchOptionException;
 
 import java.io.IOException;
 import java.util.*;
@@ -30,25 +31,25 @@ public class SupplementsUI {
         while (running) {
             showMenu();
             int choice = readInt("Wybierz numer");
-            MenuOption option = MenuOption.fromCode(choice);
-            if (option == null) {
-                System.out.println("Niepoprawny wybór, spróbuj ponownie");
-                continue;
-            }
-            switch (option) {
-                case ADD_SUPPLEMENT -> addSupplement();
-                case DISPLAY_ALL -> displayAll();
-                case DISPLAY_BY_TIME -> displayByTime();
-                case DELETE_SUPPLEMENT -> deleteSupplement();
-                case EXIT -> {
-                    try {
-                        app.saveToFile((fileName));
-                    } catch (IOException e) {
-                        System.out.println("Nie udało się zapisać pliku: " + e.getMessage());
+            try {
+                MenuOption option = MenuOption.fromCode(choice);
+                switch (option) {
+                    case ADD_SUPPLEMENT -> addSupplement();
+                    case DISPLAY_ALL -> displayAll();
+                    case DISPLAY_BY_TIME -> displayByTime();
+                    case DELETE_SUPPLEMENT -> deleteSupplement();
+                    case EXIT -> {
+                        try {
+                            app.saveToFile((fileName));
+                        } catch (IOException e) {
+                            System.out.println("Nie udało się zapisać pliku: " + e.getMessage());
+                        }
+                        System.out.println("Do widzenia!");
+                        running = false;
                     }
-                    System.out.println("Do widzenia!");
-                    running = false;
                 }
+            } catch (NoSuchOptionException e) {
+                System.out.println("Niepoprawny wybór, spróbuj ponownie");
             }
         }
     }

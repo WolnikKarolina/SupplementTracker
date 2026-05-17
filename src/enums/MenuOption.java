@@ -1,5 +1,7 @@
 package enums;
 
+import exceptions.NoSuchOptionException;
+
 public enum MenuOption {
     ADD_SUPPLEMENT(1, "Dodaj suplement"),
     DISPLAY_ALL(2, "Wyświetl wszystkie suplementy"),
@@ -23,13 +25,13 @@ public enum MenuOption {
         return description;
     }
 
-    public static MenuOption fromCode(int code) {
+    public static MenuOption fromCode(int code) throws NoSuchOptionException {
         for (MenuOption option : values()) {
             if (option.code == code) {
                 return option;
             }
         }
-        return null;
+        throw new NoSuchOptionException("Niepoprawna opcja");
     }
 
     public static void printMenu() {
