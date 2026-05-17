@@ -70,13 +70,13 @@ public class SupplementsUI {
     private void displayByTime() {
         TimeOfDay.printMenu();
         int choice = dataReader.readInt("Wybierz porę dnia");
-        TimeOfDay time = TimeOfDay.fromCode(choice);
-        if (time == null) {
-            printer.printLine("Niepoprawny wybór, spróbuj ponownie");
-            return;
+        try {
+            TimeOfDay time = TimeOfDay.fromCode(choice);
+            printer.printLine("Suplementy według pory dnia: " + time.getDescription());
+            app.displaySupplementsByTime(time);
+        } catch (NoSuchOptionException e) {
+            printer.printLine(e.getMessage());
         }
-        printer.printLine("Suplementy według pory dnia: " + time.getDescription());
-        app.displaySupplementsByTime(time);
     }
 
     private void displayAll() {
@@ -124,19 +124,17 @@ public class SupplementsUI {
 
     private void getTimeChoice(Set<TimeOfDay> times) {
         int choice = dataReader.readInt("Wybierz porę dnia");
-        TimeOfDay time = TimeOfDay.fromCode(choice);
-        if (time != null) {
+        try {
+            TimeOfDay time = TimeOfDay.fromCode(choice);
             if (times.add(time)) {
                 printer.printLine(time.getDescription() + " dodane");
             } else {
-                printer.printLine("Ta pora dnia została dodana");
+                printer.printLine("Ta pora dnia już została dodana");
             }
-        } else {
-            printer.printLine("Niepoprawny wybór");
+        } catch (NoSuchOptionException e) {
+            printer.printLine(e.getMessage());
         }
     }
-
-
 
     private void showMenu() {
         printer.printLine("----MENU GŁÓWNE---");
