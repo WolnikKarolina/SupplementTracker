@@ -71,7 +71,7 @@ public class SupplementsApp {
             if (line.isBlank()) continue;
             String[] parts = line.split(";");
             if (parts.length != 3) continue;
-            String name = parts[0];
+            String name = parts[0].trim();
             int dose = Integer.parseInt(parts[1]);
             Set<TimeOfDay> times = new HashSet<>();
             if (!parts[2].isEmpty()) {

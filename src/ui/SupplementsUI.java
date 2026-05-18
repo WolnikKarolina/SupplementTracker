@@ -72,7 +72,12 @@ public class SupplementsUI {
         try {
             TimeOfDay time = TimeOfDay.fromCode(choice);
             printer.printLine("Suplementy według pory dnia: " + time.getDescription());
-            app.getSupplementsByTime(time).forEach(s -> printer.printLine(s.toString()));
+            List<Supplement> list = app.getSupplementsByTime(time);
+            if (list.isEmpty()) {
+                printer.printLine("Brak suplementów w danej porze dnia");
+            } else {
+                list.forEach(s -> printer.printLine(s.toString()));
+            }
         } catch (NoSuchOptionException e) {
             printer.printLine(e.getMessage());
         }
@@ -80,14 +85,18 @@ public class SupplementsUI {
 
     private void getAll() {
         printer.printLine("--- Wszystkie suplementy ---");
-        app.getAllSupplements().forEach(s -> printer.printLine(s.toString()));
+        List<Supplement> list = app.getAllSupplements();
+        if (list.isEmpty()) {
+            printer.printLine("Brak suplementów");
+        } else {
+            list.forEach(s -> printer.printLine(s.toString()));
+        }
         printer.printLine("Ilość wszystkich suplementów: " + app.size());
     }
 
     private void addSupplement() {
         printer.printLine("--- Dodawanie suplementu ---");
         String name = dataReader.readNonEmptyString("Podaj nazwę suplementu");
-
         int dose;
         while (true) {
             dose = dataReader.readInt("Podaj dawkę");

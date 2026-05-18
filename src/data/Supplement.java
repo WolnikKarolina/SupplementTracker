@@ -4,6 +4,7 @@ import enums.TimeOfDay;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Supplement {
     private String name;
@@ -12,7 +13,7 @@ public class Supplement {
 
 
     public Supplement(String name, int dose, Set<TimeOfDay> times) {
-        this.name = name;
+        this.name = name.trim();
         this.dose = dose;
         this.times = times;
     }
@@ -43,7 +44,10 @@ public class Supplement {
 
     @Override
     public String toString() {
-        return name + ": dawka: " + dose;
+        String timesDescription = times.stream()
+                .map(TimeOfDay::getDescription)
+                .collect(Collectors.joining(", "));
+        return name + ": dawka: " + dose + ": pora dnia: " + timesDescription;
     }
 
     @Override

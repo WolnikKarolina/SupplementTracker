@@ -1,7 +1,7 @@
 ## Supplement Tracker
 
 A simple Java application to manage your daily supplements.
-It allows yu to track supplement name, dose, time of a day and quantity per package.
+It allows you to track supplement name, dose and time of a day.
 
 ## Project Structure
 - 'data' - class for supplement data, (e.g. 'Supplement.java'),
@@ -11,7 +11,7 @@ It allows yu to track supplement name, dose, time of a day and quantity per pack
 - 'main' - main class with program loop and menu.
 
 ## Features
-- Track supplements by name, dose and time od day,
+- Track supplements by name, dose and time of day,
 - Avoid duplicates using Set
 - Sort  and display supplements by different criteria,
 - Simple console menu for user interaction.

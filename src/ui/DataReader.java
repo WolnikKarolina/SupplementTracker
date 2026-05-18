@@ -15,7 +15,7 @@ public class DataReader {
         printer.printLine(prompt);
         String text;
         while (true) {
-            text = sc.nextLine();
+            text = sc.nextLine().trim();
             if (text.isEmpty()) {
                 printer.printLine("Pole nie może być puste");
                 continue;
