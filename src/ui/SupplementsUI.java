@@ -59,7 +59,7 @@ public class SupplementsUI {
 
     private void deleteSupplement() {
         printer.printLine("Wpisz nazwę suplementu który chcesz usunąć");
-        String name = dataReader.readString();
+        String name = dataReader.readNonEmptyString("Podaj nazwę suplementu");
         if (app.deleteSupplementByName(name)){
             printer.printLine("Suplement został usunięty");
         }else {
@@ -87,9 +87,15 @@ public class SupplementsUI {
 
     private void addSupplement() {
         printer.printLine("--- Dodawanie suplementu ---");
-        printer.printLine("Podaj nazwę suplementu");
-        String name = dataReader.readString();
-        int dose = dataReader.readInt("Podaj dawkę");
+        String name = dataReader.readNonEmptyString("Podaj nazwę suplementu");
+        int dose;
+        while (true) {
+            dose = dataReader.readInt("Podaj dawkę");
+            if (dose > 0) {
+                break;
+            }
+            printer.printLine("Dawka nie może być pusta");
+        }
         Set<TimeOfDay> times = addTimes();
         if (app.addSupplement(new Supplement(name, dose, times))) {
             printer.printLine("Dodano nowy suplement:" + name);

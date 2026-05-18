@@ -12,8 +12,17 @@ public class DataReader {
         this.printer = printer;
     }
 
-    public String readString() {
-        return sc.nextLine();
+    public String readNonEmptyString(String orompt) {
+        printer.printLine(prompt);
+        String text;
+        while (true) {
+            text = sc.nextLine();
+            if (!text.isEmpty()) {
+                break;
+            }
+            printer.printLine("Pole nie może być puste");
+        }
+        return text;
     }
 
     public int readInt(String prompt) {
