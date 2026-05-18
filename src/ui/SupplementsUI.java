@@ -68,7 +68,7 @@ public class SupplementsUI {
     }
 
     private void displayByTime() {
-        TimeOfDay.printMenu();
+        TimeOfDay.printMenu(printer);
         int choice = dataReader.readInt("Wybierz porę dnia");
         try {
             TimeOfDay time = TimeOfDay.fromCode(choice);
@@ -102,7 +102,7 @@ public class SupplementsUI {
         Set<TimeOfDay> times = new HashSet<>();
         boolean addingTimes = true;
         while (addingTimes) {
-            TimeOfDay.printMenu();
+            TimeOfDay.printMenu(printer);
             getTimeChoice(times);
             addingTimes = addingAnotherTime();
         }
@@ -139,7 +139,7 @@ public class SupplementsUI {
     private void showMenu() {
         printer.printLine("----MENU GŁÓWNE---");
         printer.printLine("Wybierz opcję:");
-        MenuOption.printMenu();
+        MenuOption.printMenu(printer);
     }
 
 

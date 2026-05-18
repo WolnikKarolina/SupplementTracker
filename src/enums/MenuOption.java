@@ -1,13 +1,14 @@
 package enums;
 
 import exceptions.NoSuchOptionException;
+import ui.Printer;
 
 public enum MenuOption {
+    EXIT(0, "Wyjście z programu"),
     ADD_SUPPLEMENT(1, "Dodaj suplement"),
     DISPLAY_ALL(2, "Wyświetl wszystkie suplementy"),
     DISPLAY_BY_TIME(3, "Wyświetl suplementy według pory dnia"),
-    DELETE_SUPPLEMENT(4, "Usuń suplement"),
-    EXIT(0, "Wyjście z programu");
+    DELETE_SUPPLEMENT(4, "Usuń suplement");
 
     private final int code;
     private final String description;
@@ -34,9 +35,9 @@ public enum MenuOption {
         throw new NoSuchOptionException("Niepoprawna opcja");
     }
 
-    public static void printMenu() {
+    public static void printMenu(Printer printer) {
         for (MenuOption option : values()) {
-            System.out.println(option.getCode() + " - " + option.description);
+            printer.printLine(option.getCode() + " - " + option.description);
         }
     }
 }

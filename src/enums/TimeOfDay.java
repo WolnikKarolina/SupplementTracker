@@ -1,6 +1,7 @@
 package enums;
 
 import exceptions.NoSuchOptionException;
+import ui.Printer;
 
 import java.io.IOException;
 
@@ -36,9 +37,9 @@ public enum TimeOfDay {
         throw new NoSuchOptionException("Niepoprawna opcja");
     }
 
-    public static void printMenu() {
+    public static void printMenu(Printer printer) {
         for (TimeOfDay option : values()) {
-            System.out.println(option.code + " - " + option.description);
+            printer.printLine(option.code + " - " + option.description);
 
         }
     }
