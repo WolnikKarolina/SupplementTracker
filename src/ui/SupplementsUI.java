@@ -38,8 +38,8 @@ public class SupplementsUI {
                 MenuOption option = MenuOption.fromCode(choice);
                 switch (option) {
                     case ADD_SUPPLEMENT -> addSupplement();
-                    case DISPLAY_ALL -> displayAll();
-                    case DISPLAY_BY_TIME -> displayByTime();
+                    case DISPLAY_ALL -> getAll();
+                    case DISPLAY_BY_TIME -> getAllByTime();
                     case DELETE_SUPPLEMENT -> deleteSupplement();
                     case EXIT -> {
                         try {
@@ -66,22 +66,22 @@ public class SupplementsUI {
         }
     }
 
-    private void displayByTime() {
+    private void getAllByTime() {
         TimeOfDay.printMenu(printer);
         int choice = dataReader.readInt("Wybierz porę dnia");
         try {
             TimeOfDay time = TimeOfDay.fromCode(choice);
             printer.printLine("Suplementy według pory dnia: " + time.getDescription());
-            app.displaySupplementsByTime(time);
+            app.getSupplementsByTime(time).forEach(s -> printer.printLine(s.toString()));
         } catch (NoSuchOptionException e) {
             printer.printLine(e.getMessage());
         }
     }
 
-    private void displayAll() {
+    private void getAll() {
         printer.printLine("--- Wszystkie suplementy ---");
-        app.displayAllSupplements();
-        printer.printLine("Ilość wszystkich suplementów: " + app.getSupplements().size());
+        app.getAllSupplements().forEach(s -> printer.printLine(s.toString()));
+        printer.printLine("Ilość wszystkich suplementów: " + app.size());
     }
 
     private void addSupplement() {

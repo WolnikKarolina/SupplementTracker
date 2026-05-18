@@ -14,7 +14,11 @@ public class SupplementsApp {
     private final Set<Supplement> supplements = new HashSet<>();
 
     public Set<Supplement> getSupplements() {
-        return supplements;
+        return Collections.unmodifiableSet(supplements);
+    }
+
+    public int size() {
+        return supplements.size();
     }
 
     public boolean addSupplement(Supplement s) {
@@ -40,14 +44,14 @@ public class SupplementsApp {
 
     }
 
-    public void displayAllSupplements() {
-        sortByName().forEach(System.out::println);
+    public List<Supplement> getAllSupplements() {
+        return sortByName();
     }
 
-    public void displaySupplementsByTime(TimeOfDay time) {
-        supplements.stream()
+    public List<Supplement> getSupplementsByTime(TimeOfDay time) {
+        return sortByName().stream()
                 .filter(s -> s.getTimes().contains(time))
-                .forEach(System.out::println);
+                .toList();
     }
 
     public void saveToFile(String fileName) throws IOException {
