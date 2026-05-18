@@ -71,16 +71,19 @@ public class SupplementsApp {
             if (line.isBlank()) continue;
             String[] parts = line.split(";");
             if (parts.length != 3) continue;
-            String name = parts[0].trim();
-            int dose = Integer.parseInt(parts[1]);
-            Set<TimeOfDay> times = new HashSet<>();
-            if (!parts[2].isEmpty()) {
-                for (String t : parts[2].split(",")) {
-                    times.add(TimeOfDay.valueOf(t));
+            try {
+                String name = parts[0].trim();
+                int dose = Integer.parseInt(parts[1]);
+                Set<TimeOfDay> times = new HashSet<>();
+                if (!parts[2].isEmpty()) {
+                    for (String t : parts[2].split(",")) {
+                        times.add(TimeOfDay.valueOf(t));
+                    }
                 }
+                supplements.add(new Supplement(name, dose, times));
+            }catch (IllegalArgumentException e) {
+                continue;
             }
-            Supplement s = new Supplement(name, dose, times);
-            supplements.add(s);
         }
     }
 }

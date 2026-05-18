@@ -103,7 +103,7 @@ public class SupplementsUI {
             if (dose > 0) {
                 break;
             }
-            printer.printLine("Dawka nie może być pusta");
+            printer.printLine("Dawka musi być większa od 0");
         }
         Set<TimeOfDay> times = addTimes();
         if (app.addSupplement(new Supplement(name, dose, times))) {
