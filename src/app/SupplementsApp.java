@@ -37,20 +37,16 @@ public class SupplementsApp {
         return false;
     }
 
-    public List<Supplement> sortByName() {
+    public List<Supplement> getAllSupplements() {
         return supplements.stream()
                 .sorted(Comparator.comparing(Supplement::getName))
-                .collect(Collectors.toList());
-
-    }
-
-    public List<Supplement> getAllSupplements() {
-        return sortByName();
+                .toList();
     }
 
     public List<Supplement> getSupplementsByTime(TimeOfDay time) {
-        return sortByName().stream()
+        return supplements.stream()
                 .filter(s -> s.getTimes().contains(time))
+                .sorted(Comparator.comparing(Supplement::getName))
                 .toList();
     }
 
