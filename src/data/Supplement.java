@@ -50,11 +50,11 @@ public class Supplement {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Supplement that = (Supplement) o;
-        return Objects.equals(name, that.name);
+        return Objects.equals(name.toLowerCase(), that.name.toLowerCase());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name);
+        return Objects.hashCode(name.toLowerCase());
     }
 }

@@ -16,12 +16,16 @@ public class DataReader {
         String text;
         while (true) {
             text = sc.nextLine();
-            if (!text.isEmpty()) {
-                break;
+            if (text.isEmpty()) {
+                printer.printLine("Pole nie może być puste");
+                continue;
             }
-            printer.printLine("Pole nie może być puste");
+            if (text.contains(";")) {
+                printer.printLine("Wpisany tekst zawiera niedozwolony znak ;");
+                continue;
+            }
+            return text;
         }
-        return text;
     }
 
     public int readInt(String prompt) {

@@ -68,7 +68,9 @@ public class SupplementsApp {
             return;
         List<String> lines = Files.readAllLines(path);
         for (String line : lines) {
+            if (line.isBlank()) continue;
             String[] parts = line.split(";");
+            if (parts.length != 3) continue;
             String name = parts[0];
             int dose = Integer.parseInt(parts[1]);
             Set<TimeOfDay> times = new HashSet<>();

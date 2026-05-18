@@ -87,6 +87,7 @@ public class SupplementsUI {
     private void addSupplement() {
         printer.printLine("--- Dodawanie suplementu ---");
         String name = dataReader.readNonEmptyString("Podaj nazwę suplementu");
+
         int dose;
         while (true) {
             dose = dataReader.readInt("Podaj dawkę");
