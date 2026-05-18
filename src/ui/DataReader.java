@@ -3,7 +3,6 @@ package ui;
 import java.util.Scanner;
 
 
-
 public class DataReader {
     private final Scanner sc = new Scanner(System.in);
     private final Printer printer;
@@ -12,7 +11,7 @@ public class DataReader {
         this.printer = printer;
     }
 
-    public String readNonEmptyString(String orompt) {
+    public String readNonEmptyString(String prompt) {
         printer.printLine(prompt);
         String text;
         while (true) {
@@ -32,7 +31,7 @@ public class DataReader {
                 int number = Integer.parseInt(sc.nextLine());
                 if (number >= 0) {
                     return number;
-                }else {
+                } else {
                     printer.printLine("Niepoprawny wybór");
                 }
             } catch (NumberFormatException e) {

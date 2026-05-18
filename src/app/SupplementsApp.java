@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class SupplementsApp {
-    private Set<Supplement> supplements =  new HashSet<>();
+    private final Set<Supplement> supplements = new HashSet<>();
 
     public Set<Supplement> getSupplements() {
         return supplements;
@@ -21,11 +21,11 @@ public class SupplementsApp {
         return supplements.add(s);
     }
 
-    public boolean deleteSupplementByName (String name) {
+    public boolean deleteSupplementByName(String name) {
         Iterator<Supplement> it = supplements.iterator();
         while (it.hasNext()) {
             Supplement s = it.next();
-            if ( s.getName().equalsIgnoreCase(name)) {
+            if (s.getName().equalsIgnoreCase(name)) {
                 it.remove();
                 return true;
             }
@@ -33,7 +33,7 @@ public class SupplementsApp {
         return false;
     }
 
-    public List<Supplement> sortByName(){
+    public List<Supplement> sortByName() {
         return supplements.stream()
                 .sorted(Comparator.comparing(Supplement::getName))
                 .collect(Collectors.toList());
@@ -41,7 +41,7 @@ public class SupplementsApp {
     }
 
     public void displayAllSupplements() {
-            sortByName().forEach(System.out::println);
+        sortByName().forEach(System.out::println);
     }
 
     public void displaySupplementsByTime(TimeOfDay time) {

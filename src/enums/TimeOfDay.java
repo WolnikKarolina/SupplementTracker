@@ -3,8 +3,6 @@ package enums;
 import exceptions.NoSuchOptionException;
 import ui.Printer;
 
-import java.io.IOException;
-
 public enum TimeOfDay {
     MORNING(1, "Rano"),
     BREAKFAST(2, "Do śniadania"),
@@ -28,9 +26,9 @@ public enum TimeOfDay {
         return description;
     }
 
-    public static TimeOfDay fromCode (int code) throws NoSuchOptionException {
+    public static TimeOfDay fromCode(int code) throws NoSuchOptionException {
         for (TimeOfDay option : values()) {
-            if ( option.code == code) {
+            if (option.code == code) {
                 return option;
             }
         }

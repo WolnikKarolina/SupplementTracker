@@ -58,11 +58,10 @@ public class SupplementsUI {
     }
 
     private void deleteSupplement() {
-        printer.printLine("Wpisz nazwę suplementu który chcesz usunąć");
-        String name = dataReader.readNonEmptyString("Podaj nazwę suplementu");
-        if (app.deleteSupplementByName(name)){
+        String name = dataReader.readNonEmptyString("Podaj nazwę suplementu który chcesz usunąć");
+        if (app.deleteSupplementByName(name)) {
             printer.printLine("Suplement został usunięty");
-        }else {
+        } else {
             printer.printLine("Nie znaleziono suplementu o podanej nazwie");
         }
     }
@@ -99,7 +98,7 @@ public class SupplementsUI {
         Set<TimeOfDay> times = addTimes();
         if (app.addSupplement(new Supplement(name, dose, times))) {
             printer.printLine("Dodano nowy suplement:" + name);
-        }else {
+        } else {
             printer.printLine("Suplement o tej nazwie już istnieje");
         }
     }
@@ -117,7 +116,7 @@ public class SupplementsUI {
 
     private boolean addingAnotherTime() {
         while (true) {
-        int another = dataReader.readInt("Czy chcesz dodać kolejną porę dnia? 1 - tak, 2 - nie");
+            int another = dataReader.readInt("Czy chcesz dodać kolejną porę dnia? 1 - tak, 2 - nie");
             if (another == 1) {
                 return true;
             } else if (another == 2) {
